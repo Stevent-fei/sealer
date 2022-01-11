@@ -10,7 +10,7 @@ jobs:
 #        uses: actions/checkout@v2
 #      - name: Run Gosec Security Scanner
 #        uses: securego/gosec@master
-      - uses: actions/checkout@v1
+      - uses: actions/checkout@v2
       - uses: ynniss/golang-security-action@master
         with:
           CODE_PATH: "./..."
