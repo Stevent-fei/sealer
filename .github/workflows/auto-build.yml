@@ -13,18 +13,18 @@ jobs:
     steps:
 
       - name: Auto build image
-      uses: peter-evans/create-or-update-comment@v1
-      with:
-        issue-number: ${{ github.event.issue.number }}
-        run: |
-          wget https://dl.k8s.io/v1.20.14/kubernetes-server-linux-amd64.tar.gz
-          tar -xvf kubernetes-server-linux-amd64.tar.gz
-          rm -rf kubernetes-server-linux-amd64.tar.gz
-          cd kubernetes/server/bin
-          cat << EOF >>Kubefile
-          FROM scratch
-          COPY kubectl ./bin
-          COPY kubeadm ./bin
-          COPY kubelet ./bin
-          EOF
-          sealer build -f Kubefile -m lite -f kubernetes:v1.20.14 .
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          run: |
+            wget https://dl.k8s.io/v1.20.14/kubernetes-server-linux-amd64.tar.gz
+            tar -xvf kubernetes-server-linux-amd64.tar.gz
+            rm -rf kubernetes-server-linux-amd64.tar.gz
+            cd kubernetes/server/bin
+            cat << EOF >>Kubefile
+            FROM scratch
+            COPY kubectl ./bin
+            COPY kubeadm ./bin
+            COPY kubelet ./bin
+            EOF
+            sealer build -f Kubefile -m lite -f kubernetes:v1.20.14 .
