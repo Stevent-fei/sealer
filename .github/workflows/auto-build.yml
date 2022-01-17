@@ -30,10 +30,10 @@ jobs:
           k8s.gcr.io/etcd:3.4.13-0 \
           k8s.gcr.io/coredns:1.7.0 >> imageList
           ls -R
-          wget http://sealer.oss-cn-beijing.aliyuncs.com/sealers/sealer-v0.6.1-linux-amd64.tar.gz
-          sudo tar -xvf sealer-v0.6.1-linux-amd64.tar.gz -C /usr/bin
+          wget http://sealer.oss-cn-beijing.aliyuncs.com/auto-build/sealer.tar.gz
+          sudo tar -xvf sealer.tar.gz -C /usr/bin
           sudo sealer build -f Kubefile -m lite -t kubernetes:v1.20.14 .
-          sudo sealer push kubernetes:v1.20.14
+#          sudo sealer push kubernetes:v1.20.14
       - name: Auto build image
         uses: peter-evans/create-or-update-comment@v1
         with:
