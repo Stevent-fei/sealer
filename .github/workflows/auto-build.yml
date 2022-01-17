@@ -14,26 +14,28 @@ jobs:
 
       - name: Check outputs
         run: |
-          wget http://sealer.oss-cn-beijing.aliyuncs.com/k8s/rootfs.tar.gz
-          tar -xvf rootfs.tar.gz
+          wget http://sealer.oss-cn-beijing.aliyuncs.com/auto-build/k8sv1.20.14.tar.gz
+          tar -xvf k8sv1.20.14.tar.gz
           wget https://dl.k8s.io/v1.20.14/kubernetes-server-linux-amd64.tar.gz
           tar -xvf kubernetes-server-linux-amd64.tar.gz
-          sudo cp ./kubernetes/server/bin/kubectl ./rootfs2/bin/
-          sudo cp ./kubernetes/server/bin/kubeadm ./rootfs2/bin/
-          sudo cp ./kubernetes/server/bin/kubelet ./rootfs2/bin/
-          cd ./rootfs2
-          echo k8s.gcr.io/kube-apiserver:v1.20.14 \
-          k8s.gcr.io/kube-controller-manager:v1.20.14 \
-          k8s.gcr.io/kube-scheduler:v1.20.14 \
-          k8s.gcr.io/kube-proxy:v1.20.14 \
-          k8s.gcr.io/pause:3.2 \
-          k8s.gcr.io/etcd:3.4.13-0 \
-          k8s.gcr.io/coredns:1.7.0 >> imageList
-          ls -R
+          sudo cp ./kubernetes/server/bin/kubectl ./rootfs/bin/
+          sudo cp ./kubernetes/server/bin/kubeadm ./rootfs/bin/
+          sudo cp ./kubernetes/server/bin/kubelet ./rootfs/bin/
           wget http://sealer.oss-cn-beijing.aliyuncs.com/auto-build/sealer.tar.gz
           sudo tar -xvf sealer.tar.gz -C /usr/bin
+          sudo sealer login ${{secrets.PRIVATEWAREHOUSE}}
+          cd ./rootfs
+          cat>imageList<<EOF
+          k8s.gcr.io/kube-apiserver:v1.20.14
+          k8s.gcr.io/kube-controller-manager:v1.20.14
+          k8s.gcr.io/kube-scheduler:v1.20.14
+          k8s.gcr.io/kube-proxy:v1.20.14
+          k8s.gcr.io/pause:3.2
+          k8s.gcr.io/etcd:3.4.13-0
+          k8s.gcr.io/coredns:1.7.0
+          EOF
           sudo sealer build -f Kubefile -m lite -t kubernetes:v1.20.14 .
-#          sudo sealer push kubernetes:v1.20.14
+          sudo sealer push kubernetes:v1.20.14
       - name: Auto build image
         uses: peter-evans/create-or-update-comment@v1
         with:
