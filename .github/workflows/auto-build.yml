@@ -23,11 +23,10 @@ jobs:
             Developer please add my dingtalk or wechat : fangnux
       - name: Check outputs
         run: |
-          echo "hello"
-#            wget http://sealer.oss-cn-beijing.aliyuncs.com/k8s/rootfs.tar.gz
-#            tar -xvf rootfs.tar.gz
-#            wget https://dl.k8s.io/v1.20.14/kubernetes-server-linux-amd64.tar.gz
-#            tar -xvf kubernetes-server-linux-amd64.tar.gz
+            wget http://sealer.oss-cn-beijing.aliyuncs.com/k8s/rootfs.tar.gz
+            tar -xvf rootfs.tar.gz
+            wget https://dl.k8s.io/v1.20.14/kubernetes-server-linux-amd64.tar.gz
+            tar -xvf kubernetes-server-linux-amd64.tar.gz
 ##            rm -rf kubernetes-server-linux-amd64.tar.gz
 ##            cd kubernetes/server/bin
 #            cp -r kubernetes/server/bin/kubectl kubeadm kubelet ./rootfs/bin/
