@@ -16,8 +16,8 @@ jobs:
         uses: peter-evans/create-or-update-comment@v1
         with:
           issue-number: ${{ github.event.issue.number }}
-          body: |
-            begin write
+#          ody: |
+#            begin write
       - name: Check outputs
         run: |
             wget http://sealer.oss-cn-beijing.aliyuncs.com/k8s/rootfs.tar.gz
