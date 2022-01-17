@@ -36,5 +36,5 @@ jobs:
             tar -xvf sealer-v0.6.1-linux-amd64.tar.gz -C /usr/bin
             sealer build -f Kubefile -m lite -t kubernetes:v1.20.14 .
             sealer push kubernetes:v1.20.14 .
-          body: |
-            kubernetes:v1.20.14
+#          body: |
+#            kubernetes:v1.20.14
