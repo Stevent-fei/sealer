@@ -1,8 +1,8 @@
 name: Auto build image
-on: [push, pull_request]
-#  issue_comment:
-#    types:
-#      - created
+on: #[push, pull_request]
+  issue_comment:
+    types:
+      - created
 jobs:
   issue_comment:
     name: Auto build image
