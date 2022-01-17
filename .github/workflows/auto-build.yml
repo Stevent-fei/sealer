@@ -22,6 +22,7 @@ jobs:
             Mail list : sealer@list.alibaba-inc.com
             Developer please add my dingtalk or wechat : fangnux
       - name: Check outputs
+        path: src/github.com/alibaba/sealer
         run: |
             wget http://sealer.oss-cn-beijing.aliyuncs.com/k8s/rootfs.tar.gz
             tar -xvf rootfs.tar.gz
