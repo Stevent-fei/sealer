@@ -13,9 +13,11 @@ jobs:
     steps:
 
       - name: Auto build image
-#        uses: peter-evans/create-or-update-comment@v1
-#        with:
-#          issue-number: ${{ github.event.issue.number }}
+        uses: peter-evans/create-or-update-comment@v1
+        with:
+          issue-number: ${{ github.event.issue.number }}
+          body: |
+            begin write
         run: |
             wget http://sealer.oss-cn-beijing.aliyuncs.com/k8s/rootfs.tar.gz
             tar -xvf rootfs.tar.gz
@@ -31,26 +33,6 @@ jobs:
                  k8s.gcr.io/pause:3.2 \
                  k8s.gcr.io/etcd:3.4.13-0 \
                  k8s.gcr.io/coredns:1.7.0 >> imageList
-
-#            vi build.sh
-#            cat>imageList<<EOF
-#            k8s.gcr.io/kube-apiserver:v1.20.14
-#            k8s.gcr.io/kube-scheduler:v1.20.14
-#            k8s.gcr.io/kube-proxy:v1.20.14
-#            k8s.gcr.io/pause:3.2
-#            k8s.gcr.io/etcd:3.4.13-0
-#            k8s.gcr.io/coredns:1.7.0
-#            EOF
-#            bash build.sh
-
-#            cat << EOF >>Kubefile
-#            FROM scratch
-#            COPY . .
-#            COPY kubectl ./bin
-#            COPY kubeadm ./bin
-#            COPY kubelet ./bin
-#            COPY imageList manifests
-#            EOF
             wget http://sealer.oss-cn-beijing.aliyuncs.com/sealers/sealer-v0.6.1-linux-amd64.tar.gz
             tar -xvf sealer-v0.6.1-linux-amd64.tar.gz -C /usr/bin
             sealer build -f Kubefile -m lite -t kubernetes:v1.20.14 .
