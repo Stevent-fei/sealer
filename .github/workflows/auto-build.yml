@@ -21,8 +21,9 @@ jobs:
             Sealer dingtalk group : 34619594
             Mail list : sealer@list.alibaba-inc.com
             Developer please add my dingtalk or wechat : fangnux
-#      - name: Check outputs
-#        run: |
+      - name: Check outputs
+        run: |
+          echo "hello"
 #            wget http://sealer.oss-cn-beijing.aliyuncs.com/k8s/rootfs.tar.gz
 #            tar -xvf rootfs.tar.gz
 #            wget https://dl.k8s.io/v1.20.14/kubernetes-server-linux-amd64.tar.gz
