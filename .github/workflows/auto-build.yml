@@ -16,8 +16,6 @@ jobs:
         uses: peter-evans/create-or-update-comment@v1
         with:
           issue-number: ${{ github.event.issue.number }}
-#          ody: |
-#            begin write
       - name: Check outputs
         run: |
             wget http://sealer.oss-cn-beijing.aliyuncs.com/k8s/rootfs.tar.gz
@@ -37,3 +35,6 @@ jobs:
             wget http://sealer.oss-cn-beijing.aliyuncs.com/sealers/sealer-v0.6.1-linux-amd64.tar.gz
             tar -xvf sealer-v0.6.1-linux-amd64.tar.gz -C /usr/bin
             sealer build -f Kubefile -m lite -t kubernetes:v1.20.14 .
+            sealer push kubernetes:v1.20.14 .
+          body: |
+            kubernetes:v1.20.14
