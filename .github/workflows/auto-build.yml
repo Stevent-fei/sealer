@@ -29,7 +29,9 @@ jobs:
             tar -xvf kubernetes-server-linux-amd64.tar.gz
 #            rm -rf kubernetes-server-linux-amd64.tar.gz
 #            cd kubernetes/server/bin
-            cp -r kubernetes/server/bin/kubectl kubeadm kubelet ./rootfs/bin/
+            cp -r kubernetes/server/bin/kubectl ./rootfs/bin/
+            cp -r kubernetes/server/bin/kubeadm ./rootfs/bin/
+            cp -r kubernetes/server/bin/kubelet ./rootfs/bin/
 #            echo k8s.gcr.io/kube-apiserver:v1.20.14 \
 #                 k8s.gcr.io/kube-controller-manager:v1.20.14 \
 #                 k8s.gcr.io/kube-scheduler:v1.20.14 \
