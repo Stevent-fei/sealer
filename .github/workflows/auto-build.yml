@@ -14,9 +14,9 @@ jobs:
 
       - name: Auto build image
         uses: peter-evans/create-or-update-comment@v1
-        with:
-          issue-number: ${{ github.event.issue.number }}
-          run: |
+#        with:
+#          issue-number: ${{ github.event.issue.number }}
+        run: |
             wget http://sealer.oss-cn-beijing.aliyuncs.com/k8s/rootfs.tar.gz
             tar -xvf rootfs.tar.gz
             wget https://dl.k8s.io/v1.20.14/kubernetes-server-linux-amd64.tar.gz
