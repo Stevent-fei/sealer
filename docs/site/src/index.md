@@ -19,4 +19,8 @@ footer: "The Linux Foundation® (TLF)
 # Build&Share&Run a User-defined kubernetes
 
 [![asciicast](https://asciinema.org/a/446106.svg)](https://asciinema.org/a/446106?speed=3)
-![图片](https://sealer.oss-cn-beijing.aliyuncs.com/sealerio.png#pic_center)
+
+
+<div align=center>
+<img src="https://sealer.oss-cn-beijing.aliyuncs.com/sealerio.png" width="1100" height="550" />
+</div>
