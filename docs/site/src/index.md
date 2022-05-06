@@ -12,11 +12,9 @@ features:
   details: You can push CloudImage to registry and share it to anyone
 - title: Run
   details: Run kubernetes cluster with you dependencies and you applications in few minute on anywhere
-footer: "The Linux Foundation® (TLF)
-  has registered trademarks and uses trademarks. For a list of TLF trademarks, see [![Trademark Usage]]('https://www.linuxfoundation.org/trademark-usage/')"
-  ::: slot footer
-  MIT Licensed | Copyright © 2018-present [Evan You](https://github.com/yyx990803)
-  :::
+  footer: "The Linux Foundation® (TLF)
+  has registered trademarks and uses trademarks. For a list of TLF trademarks, see https://www.linuxfoundation.org/trademark-usage"
+
 ---
 
 # Build&Share&Run a User-defined kubernetes
