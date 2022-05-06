@@ -21,3 +21,7 @@ footer: The Linux Foundation® (TLF)
 本例中介绍如何构建一个包含dashboard的集群镜像，然后一键启动。
 
 [![asciicast](https://asciinema.org/a/446106.svg)](https://asciinema.org/a/446106?speed=3)
+
+<div align=center>
+<img src="https://sealer.oss-cn-beijing.aliyuncs.com/sealerio.png" width="1100" height="550" />
+</div>
