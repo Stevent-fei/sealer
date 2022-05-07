@@ -22,5 +22,5 @@ footer: "The Linux Foundation® (TLF)
 
 
 <div align=center>
-<img src="https://sealer.oss-cn-beijing.aliyuncs.com/sealerio.png" width="1100" height="550" />
+<img src="https://sealer.oss-cn-beijing.aliyuncs.com/sealerio.png" width="1100" height="550"/>
 </div>
