@@ -199,7 +199,8 @@ func scaleDownCluster(workClusterfile string) error {
 		return err
 	}
 
-	if err := cf.SaveAll(); err != nil {
+	clusterWorkClusterfile := common.GetClusterWorkClusterfile()
+	if err := cf.SaveAll(clusterWorkClusterfile); err != nil {
 		return err
 	}
 	return nil

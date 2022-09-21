@@ -32,7 +32,7 @@ type Interface interface {
 	GetConfigs() []v1.Config
 	GetPlugins() []v1.Plugin
 	GetKubeadmConfig() *kubeadm_config.KubeadmConfig
-	SaveAll() error
+	SaveAll(path string) error
 }
 
 type ClusterFile struct {
@@ -62,7 +62,7 @@ func (c *ClusterFile) GetKubeadmConfig() *kubeadm_config.KubeadmConfig {
 	return &c.kubeadmConfig
 }
 
-func (c *ClusterFile) SaveAll() error {
+func (c *ClusterFile) SaveAll(path string) error {
 	var (
 		clusterfileBytes [][]byte
 		config           []byte
@@ -134,8 +134,6 @@ func (c *ClusterFile) SaveAll() error {
 		}
 		clusterfileBytes = append(clusterfileBytes, kubeProxyConfiguration)
 	}
-
-	path := common.GetClusterWorkClusterfile()
 
 	return os.NewCommonWriter(path).WriteFile(bytes.Join(clusterfileBytes, []byte("---\n")))
 }

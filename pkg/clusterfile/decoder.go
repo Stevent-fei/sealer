@@ -19,6 +19,7 @@ import (
 	"bytes"
 	"fmt"
 	"io"
+	"strings"
 
 	"github.com/sealerio/sealer/common"
 	"github.com/sealerio/sealer/pkg/config"
@@ -69,6 +70,8 @@ func decodeClusterFile(reader io.Reader, clusterfile *ClusterFile) error {
 				return fmt.Errorf("failed to decode %s[%s]: %v", metaType.Kind, metaType.APIVersion, err)
 			}
 
+			cfg.Spec.Data = strings.TrimSuffix(cfg.Spec.Data, "\n")
+
 			err := config.NewProcessorsAndRun(&cfg)
 			if err != nil {
 				return err
@@ -83,6 +86,7 @@ func decodeClusterFile(reader io.Reader, clusterfile *ClusterFile) error {
 				return fmt.Errorf("failed to decode %s[%s]: %v", metaType.Kind, metaType.APIVersion, err)
 			}
 
+			plu.Spec.Data = strings.TrimSuffix(plu.Spec.Data, "\n")
 			clusterfile.plugins = append(clusterfile.plugins, plu)
 
 		case common.InitConfiguration:

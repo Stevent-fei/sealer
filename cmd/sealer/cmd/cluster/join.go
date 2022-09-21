@@ -116,7 +116,7 @@ func NewJoinCmd() *cobra.Command {
 			installer, err := clusterruntime.NewInstaller(infraDriver, imageEngine, *runtimeConfig)
 			_, _, err = installer.ScaleUp(newMasterIPList, newNodeIPList)
 
-			if err = cf.SaveAll(); err != nil {
+			if err = cf.SaveAll(workClusterfile); err != nil {
 				return err
 			}
 
