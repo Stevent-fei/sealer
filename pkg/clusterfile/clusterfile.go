@@ -78,6 +78,14 @@ func (c *ClusterFile) SaveAll() error {
 		return fmt.Errorf("failed to mkdir %s: %v", fileName, err)
 	}
 
+	var hosts []v2.Host
+	for _, host := range c.cluster.Spec.Hosts {
+		if len(host.IPS) == 0 {
+			continue
+		}
+		hosts = append(hosts, host)
+	}
+
 	cluster, err := yaml.Marshal(c.cluster)
 	if err != nil {
 		return err
