@@ -124,11 +124,6 @@ func ConstructClusterForJoin(cluster *v2.Cluster, scaleArgs *types.Args, joinMas
 			}
 		}
 
-		for _, ip := range cluster.Spec.Hosts {
-			masterIp := cluster.GetIPSByRole(common.NODE)
-			ip.IPS = append(masterIp, joinWorkers...)
-		}
-
 		host := v2.Host{
 			IPS:   joinWorkers,
 			Roles: []string{common.NODE},
