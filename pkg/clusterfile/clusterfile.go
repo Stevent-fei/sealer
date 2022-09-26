@@ -73,8 +73,7 @@ func (c *ClusterFile) SaveAll() error {
 		plugin           []byte
 	)
 	fileName := common.GetDefaultClusterfile()
-	err := os.MkdirAll(filepath.Dir(fileName), os.ModePerm)
-	if err != nil {
+	if err := os.MkdirAll(filepath.Dir(fileName), os.ModePerm); err != nil {
 		return fmt.Errorf("failed to mkdir %s: %v", fileName, err)
 	}
 
@@ -85,6 +84,7 @@ func (c *ClusterFile) SaveAll() error {
 		}
 		hosts = append(hosts, host)
 	}
+	c.cluster.Spec.Hosts = hosts
 
 	cluster, err := yaml.Marshal(c.cluster)
 	if err != nil {
