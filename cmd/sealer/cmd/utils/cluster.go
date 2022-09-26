@@ -21,7 +21,6 @@ import (
 
 	"github.com/sealerio/sealer/cmd/sealer/cmd/types"
 
-	"github.com/sealerio/sealer/utils/hash"
 	netutils "github.com/sealerio/sealer/utils/net"
 	strUtils "github.com/sealerio/sealer/utils/strings"
 
@@ -58,7 +57,6 @@ func ConstructClusterForRun(imageName string, runArgs *types.Args) (*v2.Cluster,
 }
 
 func ConstructClusterForJoin(cluster *v2.Cluster, scaleArgs *types.Args, joinMasters, joinWorkers []net.IP) error {
-	var err error
 	// merge custom Env to the existed cluster
 	cluster.Spec.Env = append(cluster.Spec.Env, scaleArgs.CustomEnv...)
 
@@ -66,29 +64,30 @@ func ConstructClusterForJoin(cluster *v2.Cluster, scaleArgs *types.Args, joinMas
 	// if not use local cluster ssh auth credential.
 	var changedSSH *v1.SSH
 
-	passwd := cluster.Spec.SSH.Passwd
-	if cluster.Spec.SSH.Encrypted {
-		passwd, err = hash.AesDecrypt([]byte(cluster.Spec.SSH.Passwd))
-		if err != nil {
-			return err
-		}
-	}
+	//todo Subsequent addition of password encryption
+	//passwd := cluster.Spec.SSH.Passwd
+	//if cluster.Spec.SSH.Encrypted {
+	//	passwd, err = hash.AesDecrypt([]byte(cluster.Spec.SSH.Passwd))
+	//	if err != nil {
+	//		return err
+	//	}
+	//}
 
-	if scaleArgs.Password != "" && scaleArgs.Password != passwd {
-		// Encrypt password here to avoid merge failed.
-		passwd, err = hash.AesEncrypt([]byte(scaleArgs.Password))
-		if err != nil {
-			return err
-		}
-		changedSSH = &v1.SSH{
-			Encrypted: true,
-			User:      scaleArgs.User,
-			Passwd:    passwd,
-			Pk:        scaleArgs.Pk,
-			PkPasswd:  scaleArgs.PkPassword,
-			Port:      strconv.Itoa(int(scaleArgs.Port)),
-		}
-	}
+	//if scaleArgs.Password != "" && scaleArgs.Password != passwd {
+	//	// Encrypt password here to avoid merge failed.
+	//	passwd, err = hash.AesEncrypt([]byte(scaleArgs.Password))
+	//	if err != nil {
+	//		return err
+	//	}
+	//	changedSSH = &v1.SSH{
+	//		Encrypted: true,
+	//		User:      scaleArgs.User,
+	//		Passwd:    passwd,
+	//		Pk:        scaleArgs.Pk,
+	//		PkPasswd:  scaleArgs.PkPassword,
+	//		Port:      strconv.Itoa(int(scaleArgs.Port)),
+	//	}
+	//}
 
 	//add joined masters
 	if len(joinMasters) != 0 {
@@ -100,16 +99,22 @@ func ConstructClusterForJoin(cluster *v2.Cluster, scaleArgs *types.Args, joinMas
 			}
 		}
 
-		host := v2.Host{
-			IPS:   joinMasters,
-			Roles: []string{common.MASTER},
+		//host := v2.Host{
+		//	IPS:   joinMasters,
+		//	Roles: []string{common.MASTER},
+		//}
+
+		for _, ip := range cluster.Spec.Hosts {
+			ip.SSH = *changedSSH
+			masterIp := cluster.GetIPSByRole(common.MASTER)
+			ip.IPS = append(masterIp, joinMasters...)
 		}
 
-		if changedSSH != nil {
-			host.SSH = *changedSSH
-		}
-
-		cluster.Spec.Hosts = append(cluster.Spec.Hosts, host)
+		//if changedSSH != nil {
+		//	host.SSH = *changedSSH
+		//}
+		//
+		//cluster.Spec.Hosts = append(cluster.Spec.Hosts, host)
 	}
 
 	//add joined nodes
@@ -122,16 +127,22 @@ func ConstructClusterForJoin(cluster *v2.Cluster, scaleArgs *types.Args, joinMas
 			}
 		}
 
-		host := v2.Host{
-			IPS:   joinWorkers,
-			Roles: []string{common.NODE},
+		for _, ip := range cluster.Spec.Hosts {
+			ip.SSH = *changedSSH
+			masterIp := cluster.GetIPSByRole(common.NODE)
+			ip.IPS = append(masterIp, joinWorkers...)
 		}
 
-		if changedSSH != nil {
-			host.SSH = *changedSSH
-		}
-
-		cluster.Spec.Hosts = append(cluster.Spec.Hosts, host)
+		//host := v2.Host{
+		//	IPS:   joinWorkers,
+		//	Roles: []string{common.NODE},
+		//}
+		//
+		//if changedSSH != nil {
+		//	host.SSH = *changedSSH
+		//}
+		//
+		//cluster.Spec.Hosts = append(cluster.Spec.Hosts, host)
 	}
 	return nil
 }
