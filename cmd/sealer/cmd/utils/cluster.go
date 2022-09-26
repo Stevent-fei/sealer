@@ -99,22 +99,19 @@ func ConstructClusterForJoin(cluster *v2.Cluster, scaleArgs *types.Args, joinMas
 			}
 		}
 
-		//host := v2.Host{
-		//	IPS:   joinMasters,
-		//	Roles: []string{common.MASTER},
-		//}
-
-		for _, ip := range cluster.Spec.Hosts {
-			ip.SSH = *changedSSH
-			masterIp := cluster.GetIPSByRole(common.MASTER)
-			ip.IPS = append(masterIp, joinMasters...)
+		host := v2.Host{
+			IPS:   joinMasters,
+			Roles: []string{common.MASTER},
 		}
 
-		//if changedSSH != nil {
-		//	host.SSH = *changedSSH
-		//}
-		//
-		//cluster.Spec.Hosts = append(cluster.Spec.Hosts, host)
+		if changedSSH != nil {
+			host.SSH = *changedSSH
+		}
+
+		masterIp := cluster.GetIPSByRole(common.MASTER)
+		host.IPS = append(masterIp, joinMasters...)
+
+		cluster.Spec.Hosts = append(cluster.Spec.Hosts, host)
 	}
 
 	//add joined nodes
@@ -128,21 +125,23 @@ func ConstructClusterForJoin(cluster *v2.Cluster, scaleArgs *types.Args, joinMas
 		}
 
 		for _, ip := range cluster.Spec.Hosts {
-			ip.SSH = *changedSSH
 			masterIp := cluster.GetIPSByRole(common.NODE)
 			ip.IPS = append(masterIp, joinWorkers...)
 		}
 
-		//host := v2.Host{
-		//	IPS:   joinWorkers,
-		//	Roles: []string{common.NODE},
-		//}
-		//
-		//if changedSSH != nil {
-		//	host.SSH = *changedSSH
-		//}
-		//
-		//cluster.Spec.Hosts = append(cluster.Spec.Hosts, host)
+		host := v2.Host{
+			IPS:   joinWorkers,
+			Roles: []string{common.NODE},
+		}
+
+		if changedSSH != nil {
+			host.SSH = *changedSSH
+		}
+
+		masterIp := cluster.GetIPSByRole(common.NODE)
+		host.IPS = append(masterIp, joinWorkers...)
+
+		cluster.Spec.Hosts = append(cluster.Spec.Hosts, host)
 	}
 	return nil
 }
