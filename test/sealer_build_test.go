@@ -15,8 +15,11 @@
 package test
 
 import (
+	"fmt"
+	"github.com/sealerio/sealer/utils/exec"
 	"os"
 	"path/filepath"
+	"time"
 
 	"github.com/sealerio/sealer/test/suites/build"
 	"github.com/sealerio/sealer/test/suites/registry"
@@ -211,6 +214,8 @@ var _ = Describe("sealer build", func() {
 			// clean: build image
 			testhelper.CheckErr(build.DeleteBuildImage(imageName))
 
+			time.Sleep(10)
+
 		})
 
 		It("multi build only with arm64", func() {
@@ -232,6 +237,12 @@ var _ = Describe("sealer build", func() {
 
 			// clean: build image
 			testhelper.CheckErr(build.DeleteBuildImage(imageName))
+			time.Sleep(10)
+
+			By("Images sssssAAAAAAAAAAAAAA")
+			cmdImages := fmt.Sprintf("%s images", settings.DefaultSealerBin)
+			_, err = exec.RunSimpleCmd(cmdImages)
+			testhelper.CheckErr(err)
 		})
 
 		It("multi build with amd64 and arm64", func() {
