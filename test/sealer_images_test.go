@@ -17,6 +17,7 @@ package test
 import (
 	"fmt"
 	"github.com/sealerio/sealer/cmd/sealer/cmd/alpha"
+	"github.com/sirupsen/logrus"
 
 	"github.com/sealerio/sealer/test/suites/build"
 	"github.com/sealerio/sealer/test/suites/image"
@@ -125,10 +126,11 @@ var _ = Describe("sealer images module", func() {
 			By("start to mount images")
 			mountInfo, err := alpha.NewMountService()
 			testhelper.CheckErr(err)
+			logrus.Infof("AAAAAAAAAAAAAAAAAAAAAAAAA")
 			if err := image.Mount(mountInfo, settings.TestImageName); err != nil {
 				testhelper.CheckErr(err)
 			}
-
+			logrus.Infof("AAAAAAAAAAAAAAAAAAAAAAAAAB")
 			By("start to umount images")
 			containerID, err := image.GetContainerID()
 			if err != nil {

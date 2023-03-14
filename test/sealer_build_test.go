@@ -21,6 +21,7 @@ import (
 	"github.com/sealerio/sealer/test/testhelper"
 	"github.com/sealerio/sealer/test/testhelper/settings"
 	"github.com/sealerio/sealer/utils/exec"
+	"github.com/sirupsen/logrus"
 	"os"
 	"path/filepath"
 
@@ -199,19 +200,20 @@ var _ = Describe("sealer build", func() {
 				SetContext(".").
 				String()
 			sess, err := testhelper.Start(cmd)
-
+			logrus.Infof("AAAAAAAAAAAAAAAAAAAAAAAAAD")
 			testhelper.CheckErr(err)
 			testhelper.CheckExit0(sess, settings.MaxWaiteTime)
 
 			// check: sealer images whether image exist
 			testhelper.CheckBeTrue(build.CheckIsImageExist(imageName + "-amd64"))
 
+			logrus.Infof("AAAAAAAAAAAAAAAAAAAAAAAAA")
 			// check: push build image
 			testhelper.CheckErr(build.PushBuildImage(imageName + "-amd64"))
-
+			logrus.Infof("AAAAAAAAAAAAAAAAAAAAAAAAAB")
 			// clean: build image
 			testhelper.CheckErr(build.DeleteBuildImage(imageName + "-amd64"))
-
+			logrus.Infof("AAAAAAAAAAAAAAAAAAAAAAAAAC")
 		})
 
 		It("multi build only with arm64", func() {
