@@ -16,15 +16,13 @@ package test
 
 import (
 	"fmt"
-	"github.com/sealerio/sealer/utils/exec"
-	"os"
-	"path/filepath"
-	"time"
-
 	"github.com/sealerio/sealer/test/suites/build"
 	"github.com/sealerio/sealer/test/suites/registry"
 	"github.com/sealerio/sealer/test/testhelper"
 	"github.com/sealerio/sealer/test/testhelper/settings"
+	"github.com/sealerio/sealer/utils/exec"
+	"os"
+	"path/filepath"
 
 	. "github.com/onsi/ginkgo"
 )
@@ -196,7 +194,7 @@ var _ = Describe("sealer build", func() {
 			imageName := build.GetBuildImageName()
 			cmd := build.NewArgsOfBuild().
 				SetKubeFile("Kubefile").
-				SetImageName(imageName).
+				SetImageName(imageName + "-amd64").
 				SetPlatforms([]string{"linux/amd64"}).
 				SetContext(".").
 				String()
@@ -206,15 +204,13 @@ var _ = Describe("sealer build", func() {
 			testhelper.CheckExit0(sess, settings.MaxWaiteTime)
 
 			// check: sealer images whether image exist
-			testhelper.CheckBeTrue(build.CheckIsImageExist(imageName))
+			testhelper.CheckBeTrue(build.CheckIsImageExist(imageName + "-amd64"))
 
 			// check: push build image
-			testhelper.CheckErr(build.PushBuildImage(imageName))
+			testhelper.CheckErr(build.PushBuildImage(imageName + "-amd64"))
 
 			// clean: build image
-			testhelper.CheckErr(build.DeleteBuildImage(imageName))
-
-			time.Sleep(10)
+			testhelper.CheckErr(build.DeleteBuildImage(imageName + "-amd64"))
 
 		})
 
@@ -222,7 +218,7 @@ var _ = Describe("sealer build", func() {
 			imageName := build.GetBuildImageName()
 			cmd := build.NewArgsOfBuild().
 				SetKubeFile("Kubefile").
-				SetImageName(imageName).
+				SetImageName(imageName + "-arm64").
 				SetPlatforms([]string{"linux/arm64"}).
 				SetContext(".").
 				String()
@@ -230,16 +226,14 @@ var _ = Describe("sealer build", func() {
 			testhelper.CheckErr(err)
 			testhelper.CheckExit0(sess, settings.MaxWaiteTime)
 			// check: sealer images whether image exist
-			testhelper.CheckBeTrue(build.CheckIsMultiArchImageExist(imageName))
+			testhelper.CheckBeTrue(build.CheckIsMultiArchImageExist(imageName + "-arm64"))
 
 			// check: push build image
-			testhelper.CheckErr(build.PushBuildImage(imageName))
+			testhelper.CheckErr(build.PushBuildImage(imageName + "-arm64"))
 
 			// clean: build image
-			testhelper.CheckErr(build.DeleteBuildImage(imageName))
-			time.Sleep(10)
+			testhelper.CheckErr(build.DeleteBuildImage(imageName + "-arm64"))
 
-			By("Images sssssAAAAAAAAAAAAAA")
 			cmdImages := fmt.Sprintf("%s images", settings.DefaultSealerBin)
 			_, err = exec.RunSimpleCmd(cmdImages)
 			testhelper.CheckErr(err)
