@@ -16,6 +16,7 @@ package build
 
 import (
 	"fmt"
+	"github.com/sirupsen/logrus"
 	"path/filepath"
 	"strings"
 
@@ -156,6 +157,7 @@ func TagBuildImage(imageName, tagTo string) error {
 }
 
 func PushBuildImage(imageName string) error {
+	logrus.Infof("AAAAAAAAAAAAAAAAAAAAAAAAACCC %#+v\n", imageName)
 	push := fmt.Sprintf("%s push %s", settings.DefaultSealerBin, imageName)
 	_, err := exec.RunSimpleCmd(push)
 

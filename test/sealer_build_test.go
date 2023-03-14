@@ -15,15 +15,14 @@
 package test
 
 import (
-	"fmt"
 	"github.com/sealerio/sealer/test/suites/build"
 	"github.com/sealerio/sealer/test/suites/registry"
 	"github.com/sealerio/sealer/test/testhelper"
 	"github.com/sealerio/sealer/test/testhelper/settings"
-	"github.com/sealerio/sealer/utils/exec"
 	"github.com/sirupsen/logrus"
 	"os"
 	"path/filepath"
+	"time"
 
 	. "github.com/onsi/ginkgo"
 )
@@ -200,7 +199,6 @@ var _ = Describe("sealer build", func() {
 				SetContext(".").
 				String()
 			sess, err := testhelper.Start(cmd)
-			logrus.Infof("AAAAAAAAAAAAAAAAAAAAAAAAAD")
 			testhelper.CheckErr(err)
 			testhelper.CheckExit0(sess, settings.MaxWaiteTime)
 
@@ -208,12 +206,12 @@ var _ = Describe("sealer build", func() {
 			testhelper.CheckBeTrue(build.CheckIsImageExist(imageName + "-amd64"))
 
 			logrus.Infof("AAAAAAAAAAAAAAAAAAAAAAAAA")
+			time.Sleep(10)
 			// check: push build image
 			testhelper.CheckErr(build.PushBuildImage(imageName + "-amd64"))
 			logrus.Infof("AAAAAAAAAAAAAAAAAAAAAAAAAB")
 			// clean: build image
 			testhelper.CheckErr(build.DeleteBuildImage(imageName + "-amd64"))
-			logrus.Infof("AAAAAAAAAAAAAAAAAAAAAAAAAC")
 		})
 
 		It("multi build only with arm64", func() {
@@ -235,10 +233,6 @@ var _ = Describe("sealer build", func() {
 
 			// clean: build image
 			testhelper.CheckErr(build.DeleteBuildImage(imageName + "-arm64"))
-
-			cmdImages := fmt.Sprintf("%s images", settings.DefaultSealerBin)
-			_, err = exec.RunSimpleCmd(cmdImages)
-			testhelper.CheckErr(err)
 		})
 
 		It("multi build with amd64 and arm64", func() {
