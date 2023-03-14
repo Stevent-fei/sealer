@@ -157,10 +157,10 @@ func TagBuildImage(imageName, tagTo string) error {
 }
 
 func PushBuildImage(imageName string) error {
-	logrus.Infof("AAAAAAAAAAAAAAAAAAAAAAAAACCC %#+v\n", imageName)
 	push := fmt.Sprintf("%s push %s", settings.DefaultSealerBin, imageName)
 	_, err := exec.RunSimpleCmd(push)
 
+	logrus.Infof("AAAAAAAAAAAAAAAAAAAAAAAAA%#+v\n", err)
 	return err
 }
 

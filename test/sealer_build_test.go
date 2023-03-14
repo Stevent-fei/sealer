@@ -15,16 +15,13 @@
 package test
 
 import (
+	. "github.com/onsi/ginkgo"
 	"github.com/sealerio/sealer/test/suites/build"
 	"github.com/sealerio/sealer/test/suites/registry"
 	"github.com/sealerio/sealer/test/testhelper"
 	"github.com/sealerio/sealer/test/testhelper/settings"
-	"github.com/sirupsen/logrus"
 	"os"
 	"path/filepath"
-	"time"
-
-	. "github.com/onsi/ginkgo"
 )
 
 var _ = Describe("sealer build", func() {
@@ -205,11 +202,9 @@ var _ = Describe("sealer build", func() {
 			// check: sealer images whether image exist
 			testhelper.CheckBeTrue(build.CheckIsImageExist(imageName + "-amd64"))
 
-			logrus.Infof("AAAAAAAAAAAAAAAAAAAAAAAAA")
-			time.Sleep(10)
 			// check: push build image
 			testhelper.CheckErr(build.PushBuildImage(imageName + "-amd64"))
-			logrus.Infof("AAAAAAAAAAAAAAAAAAAAAAAAAB")
+
 			// clean: build image
 			testhelper.CheckErr(build.DeleteBuildImage(imageName + "-amd64"))
 		})

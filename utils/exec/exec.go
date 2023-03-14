@@ -60,6 +60,7 @@ func CmdOutput(name string, args ...string) ([]byte, error) {
 func RunSimpleCmd(cmd string) (string, error) {
 	username, err := GetCurrentUserName()
 	if err != nil {
+		logrus.Infof("AAAAAAAAAAAAAAAAAAAAAAAAAB%#+v\n", err)
 		return "", err
 	}
 	var result []byte
@@ -71,6 +72,7 @@ func RunSimpleCmd(cmd string) (string, error) {
 	if err != nil {
 		logrus.Debugf("failed to execute command(%s): error(%v)", cmd, err)
 	}
+	logrus.Infof("AAAAAAAAAAAAAAAAAAAAAAAAAC%#+v\n", err)
 	return string(result), err
 }
 
