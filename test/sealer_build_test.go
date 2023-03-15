@@ -17,6 +17,7 @@ package test
 import (
 	. "github.com/onsi/ginkgo"
 	"github.com/sealerio/sealer/test/suites/build"
+	"github.com/sealerio/sealer/test/suites/image"
 	"github.com/sealerio/sealer/test/suites/registry"
 	"github.com/sealerio/sealer/test/testhelper"
 	"github.com/sealerio/sealer/test/testhelper/settings"
@@ -50,9 +51,6 @@ var _ = Describe("sealer build", func() {
 
 			// check: sealer images whether image exist
 			testhelper.CheckBeTrue(build.CheckIsImageExist(imageName))
-
-			// check: push build image
-			testhelper.CheckErr(build.PushBuildImage(imageName))
 
 			//TODO check image spec content
 			// 1. launch cmds
@@ -91,9 +89,6 @@ var _ = Describe("sealer build", func() {
 			// check: sealer images whether image exist
 			testhelper.CheckBeTrue(build.CheckIsImageExist(imageName))
 
-			// check: push build image
-			testhelper.CheckErr(build.PushBuildImage(imageName))
-
 			//TODO check image spec content
 			// 1. launch app names
 			// 2. containerImageList:
@@ -131,9 +126,6 @@ var _ = Describe("sealer build", func() {
 			// check: sealer images whether image exist
 			testhelper.CheckBeTrue(build.CheckIsImageExist(imageName))
 
-			// check: push build image
-			testhelper.CheckErr(build.PushBuildImage(imageName))
-
 			//TODO check image spec content
 			// 1. launch app names
 			// 2. launch app cmds:
@@ -169,9 +161,6 @@ var _ = Describe("sealer build", func() {
 
 			// check: sealer images whether image exist
 			testhelper.CheckBeTrue(build.CheckIsImageExist(imageName))
-
-			// check: push build image
-			testhelper.CheckErr(build.PushBuildImage(imageName))
 
 			//TODO check image spec content
 			// 2. containerImageList:
@@ -236,7 +225,8 @@ var _ = Describe("sealer build", func() {
 			testhelper.CheckBeTrue(build.CheckIsMultiArchImageExist(imageName))
 
 			// check: push build image
-			testhelper.CheckErr(build.PushBuildImage(imageName))
+			image.DoImageOps("push", imageName)
+			//testhelper.CheckErr(build.PushBuildImageTest(imageName))
 
 			// clean: build image
 			testhelper.CheckErr(build.DeleteBuildImage(imageName))

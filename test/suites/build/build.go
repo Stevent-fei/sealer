@@ -16,13 +16,11 @@ package build
 
 import (
 	"fmt"
-	"github.com/sealerio/sealer/test/testhelper"
-	"github.com/sirupsen/logrus"
+	"github.com/sealerio/sealer/utils/exec"
 	"path/filepath"
 	"strings"
 
 	"github.com/sealerio/sealer/test/testhelper/settings"
-	"github.com/sealerio/sealer/utils/exec"
 )
 
 // GetBuildImageName return specific image name for sealer build test
@@ -161,12 +159,18 @@ func TagBuildImage(imageName, tagTo string) error {
 	return err
 }
 
+//func PushBuildImageTest(imageName string) error {
+//	push := fmt.Sprintf("%s push %s", settings.DefaultSealerBin, imageName)
+//	sess, err := testhelper.Start(push)
+//	testhelper.CheckExit0(sess, settings.MaxWaiteTime)
+//	return err
+//}
+
 func PushBuildImage(imageName string) error {
 	push := fmt.Sprintf("%s push %s", settings.DefaultSealerBin, imageName)
 	_, err := exec.RunSimpleCmd(push)
-	testhelper.CheckErr(err)
-	logrus.Infof("AAAAAAAAAAAAAAAAAAAAAAAAA%#+v\n", err)
-	return nil
+
+	return err
 }
 
 func DeleteBuildImage(imageName string) error {
