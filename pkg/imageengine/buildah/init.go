@@ -100,12 +100,12 @@ size = ""
 func writeFileIfNotExist(path string, content []byte) error {
 	_, err := os.Stat(path)
 	if err != nil {
-		err = os.MkdirAll(filepath.Dir(path), 0750)
+		err = os.MkdirAll(filepath.Dir(path), 0777)
 		if err != nil {
 			return err
 		}
 
-		err = os.WriteFile(path, content, 0600)
+		err = os.WriteFile(path, content, 0777)
 		if err != nil {
 			return err
 		}

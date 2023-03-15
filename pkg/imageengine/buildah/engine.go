@@ -104,7 +104,7 @@ func NewBuildahImageEngine(configurations options.EngineGlobalConfigurations) (*
 
 	checkOverlaySupported()
 
-	store, err := getStore(&configurations)
+	store, err := GetStore(&configurations)
 	if err != nil {
 		return nil, err
 	}

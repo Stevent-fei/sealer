@@ -47,7 +47,7 @@ const (
 	V2s2Archive     = "docker-archive"
 )
 
-func getStore(configurations *options.EngineGlobalConfigurations) (storage.Store, error) {
+func GetStore(configurations *options.EngineGlobalConfigurations) (storage.Store, error) {
 	options, err := storage.DefaultStoreOptions(unshare.IsRootless(), unshare.GetRootlessUID())
 	if err != nil {
 		return nil, err
