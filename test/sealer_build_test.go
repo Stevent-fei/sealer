@@ -192,7 +192,7 @@ var _ = Describe("sealer build", func() {
 			imageName := build.GetBuildImageName()
 			cmd := build.NewArgsOfBuild().
 				SetKubeFile("Kubefile").
-				SetImageName(imageName + "-amd64").
+				SetImageName(imageName).
 				SetPlatforms([]string{"linux/amd64"}).
 				SetContext(".").
 				String()
@@ -201,15 +201,17 @@ var _ = Describe("sealer build", func() {
 			testhelper.CheckExit0(sess, settings.MaxWaiteTime)
 
 			// check: sealer images whether image exist
-			testhelper.CheckBeTrue(build.CheckIsImageExist(imageName + "-amd64"))
+			image.DoImageOps("inspect", imageName)
+			//testhelper.CheckBeTrue(build.CheckIsImageExist(imageName))
 
 			// check: push build image
-			image.DoImageOps("push", imageName+"-amd64")
+			image.DoImageOps("push", imageName)
 			//push := fmt.Sprintf("%s push %s", settings.DefaultSealerBin, imageName)
 			//testhelper.CheckErr(build.PushBuildImage(imageName + "-amd64"))
 
 			// clean: build image
-			testhelper.CheckErr(build.DeleteBuildImage(imageName + "-amd64"))
+			//testhelper.CheckErr(build.DeleteBuildImage(imageName))
+			image.DoImageOps("rmi", imageName)
 		})
 
 		It("multi build only with arm64", func() {
@@ -224,14 +226,17 @@ var _ = Describe("sealer build", func() {
 			testhelper.CheckErr(err)
 			testhelper.CheckExit0(sess, settings.MaxWaiteTime)
 			// check: sealer images whether image exist
-			testhelper.CheckBeTrue(build.CheckIsMultiArchImageExist(imageName))
+			image.DoImageOps("inspect", imageName)
+			//testhelper.CheckBeTrue(build.CheckIsImageExist(imageName))
 
 			// check: push build image
 			image.DoImageOps("push", imageName)
-			//testhelper.CheckErr(build.PushBuildImageTest(imageName))
+			//push := fmt.Sprintf("%s push %s", settings.DefaultSealerBin, imageName)
+			//testhelper.CheckErr(build.PushBuildImage(imageName + "-amd64"))
 
 			// clean: build image
-			testhelper.CheckErr(build.DeleteBuildImage(imageName))
+			//testhelper.CheckErr(build.DeleteBuildImage(imageName))
+			image.DoImageOps("rmi", imageName)
 		})
 
 		It("multi build with amd64 and arm64", func() {
@@ -246,13 +251,17 @@ var _ = Describe("sealer build", func() {
 			testhelper.CheckErr(err)
 			testhelper.CheckExit0(sess, settings.MaxWaiteTime)
 			// check: sealer images whether image exist
-			testhelper.CheckBeTrue(build.CheckIsMultiArchImageExist(imageName))
+			image.DoImageOps("inspect", imageName)
+			//testhelper.CheckBeTrue(build.CheckIsImageExist(imageName))
 
 			// check: push build image
-			testhelper.CheckErr(build.PushBuildImage(imageName))
+			image.DoImageOps("push", imageName)
+			//push := fmt.Sprintf("%s push %s", settings.DefaultSealerBin, imageName)
+			//testhelper.CheckErr(build.PushBuildImage(imageName + "-amd64"))
 
 			// clean: build image
-			testhelper.CheckErr(build.DeleteBuildImage(imageName))
+			//testhelper.CheckErr(build.DeleteBuildImage(imageName))
+			image.DoImageOps("rmi", imageName)
 		})
 
 	})
