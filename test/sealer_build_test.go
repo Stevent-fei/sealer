@@ -204,7 +204,7 @@ var _ = Describe("sealer build", func() {
 			testhelper.CheckBeTrue(build.CheckIsImageExist(imageName + "-amd64"))
 
 			// check: push build image
-			image.DoImageOps("push", imageName+"amd64")
+			image.DoImageOps("push", imageName+"-amd64")
 			//push := fmt.Sprintf("%s push %s", settings.DefaultSealerBin, imageName)
 			//testhelper.CheckErr(build.PushBuildImage(imageName + "-amd64"))
 
