@@ -19,6 +19,7 @@ import (
 	"github.com/containers/buildah"
 	"github.com/containers/storage"
 	"github.com/olekukonko/tablewriter"
+	"github.com/sealerio/sealer/cmd/sealer/cmd/alpha"
 	"github.com/sealerio/sealer/pkg/define/options"
 	imagebuildah "github.com/sealerio/sealer/pkg/imageengine/buildah"
 	"github.com/sealerio/sealer/test/testhelper"
@@ -28,7 +29,7 @@ import (
 	"strings"
 )
 
-func Mount(mountInfo MountService, name string) error {
+func Mount(mountInfo alpha.MountService, name string) error {
 	mountPoint, err := mountInfo.Mount(name)
 	testhelper.CheckErr(err)
 
