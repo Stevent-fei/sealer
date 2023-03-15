@@ -61,7 +61,6 @@ func RunSimpleCmd(cmd string) (string, error) {
 	var err error
 	username, err := GetCurrentUserName()
 	if err != nil {
-		logrus.Infof("AAAAAAAAAAAAAAAAAAAAAAAAAB%#+v\n", err)
 		return "", err
 	}
 	var result []byte

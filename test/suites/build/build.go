@@ -29,6 +29,10 @@ func GetBuildImageName() string {
 	return "docker.io/sealerio/build-test:v1"
 }
 
+func TestGetBuildImageName() string {
+	return "docker.io/sealerio/build-test:v1"
+}
+
 func WithCmdsBuildDir() string {
 	return filepath.Join(settings.DefaultTestEnvDir, "suites", "build", "fixtures",
 		"build_with_cmds")
