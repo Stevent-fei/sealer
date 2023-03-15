@@ -16,6 +16,7 @@ package build
 
 import (
 	"fmt"
+	"github.com/sealerio/sealer/test/testhelper"
 	"github.com/sirupsen/logrus"
 	"path/filepath"
 	"strings"
@@ -163,9 +164,9 @@ func TagBuildImage(imageName, tagTo string) error {
 func PushBuildImage(imageName string) error {
 	push := fmt.Sprintf("%s push %s", settings.DefaultSealerBin, imageName)
 	_, err := exec.RunSimpleCmd(push)
-
+	testhelper.CheckErr(err)
 	logrus.Infof("AAAAAAAAAAAAAAAAAAAAAAAAA%#+v\n", err)
-	return err
+	return nil
 }
 
 func DeleteBuildImage(imageName string) error {
