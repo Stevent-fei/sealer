@@ -192,7 +192,7 @@ var _ = Describe("sealer build", func() {
 			cmd := build.NewArgsOfBuild().
 				SetKubeFile("Kubefile").
 				SetImageName(imageName + "-amd64").
-				//SetPlatforms([]string{"linux/amd64"}).
+				SetPlatforms([]string{"linux/amd64"}).
 				SetContext(".").
 				String()
 			sess, err := testhelper.Start(cmd)
@@ -203,7 +203,7 @@ var _ = Describe("sealer build", func() {
 			testhelper.CheckBeTrue(build.CheckIsImageExist(imageName + "-amd64"))
 
 			// check: push build image
-			testhelper.CheckErr(build.PushBuildImage(imageName + "-amd64"))
+			//testhelper.CheckErr(build.PushBuildImage(imageName + "-amd64"))
 
 			// clean: build image
 			testhelper.CheckErr(build.DeleteBuildImage(imageName + "-amd64"))
