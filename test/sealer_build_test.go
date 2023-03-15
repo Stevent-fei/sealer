@@ -200,10 +200,10 @@ var _ = Describe("sealer build", func() {
 			testhelper.CheckExit0(sess, settings.MaxWaiteTime)
 
 			// check: sealer images whether image exist
-			testhelper.CheckBeTrue(build.CheckIsImageExist(imageName))
+			testhelper.CheckBeTrue(build.CheckIsImageExist(imageName + "-amd64"))
 
 			// check: push build image
-			testhelper.CheckErr(build.PushBuildImage(imageName))
+			testhelper.CheckErr(build.PushBuildImage(imageName + "-amd64"))
 
 			// clean: build image
 			testhelper.CheckErr(build.DeleteBuildImage(imageName + "-amd64"))
