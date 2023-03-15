@@ -27,8 +27,8 @@ require (
 	github.com/moby/buildkit v0.9.3
 	github.com/moby/term v0.0.0-20210619224110-3f7ff695adc6
 	github.com/olekukonko/tablewriter v0.0.5
-	github.com/onsi/ginkgo v2.1.0
-	github.com/onsi/gomega v1.21.1
+	github.com/onsi/ginkgo v1.16.5
+	github.com/onsi/gomega v1.20.0
 	github.com/opencontainers/go-digest v1.0.0
 	github.com/opencontainers/image-spec v1.0.3-0.20220114050600-8b9d41f48198
 	github.com/pelletier/go-toml v1.9.4

@@ -51,6 +51,9 @@ var _ = Describe("sealer build", func() {
 			// check: sealer images whether image exist
 			testhelper.CheckBeTrue(build.CheckIsImageExist(imageName))
 
+			// check: push build image
+			testhelper.CheckErr(build.PushBuildImage(imageName))
+
 			//TODO check image spec content
 			// 1. launch cmds
 			// 2. containerImageList:
@@ -87,6 +90,9 @@ var _ = Describe("sealer build", func() {
 
 			// check: sealer images whether image exist
 			testhelper.CheckBeTrue(build.CheckIsImageExist(imageName))
+
+			// check: push build image
+			testhelper.CheckErr(build.PushBuildImage(imageName))
 
 			//TODO check image spec content
 			// 1. launch app names
@@ -125,6 +131,9 @@ var _ = Describe("sealer build", func() {
 			// check: sealer images whether image exist
 			testhelper.CheckBeTrue(build.CheckIsImageExist(imageName))
 
+			// check: push build image
+			testhelper.CheckErr(build.PushBuildImage(imageName))
+
 			//TODO check image spec content
 			// 1. launch app names
 			// 2. launch app cmds:
@@ -160,6 +169,9 @@ var _ = Describe("sealer build", func() {
 
 			// check: sealer images whether image exist
 			testhelper.CheckBeTrue(build.CheckIsImageExist(imageName))
+
+			// check: push build image
+			testhelper.CheckErr(build.PushBuildImage(imageName))
 
 			//TODO check image spec content
 			// 2. containerImageList:
