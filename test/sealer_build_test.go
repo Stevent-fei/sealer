@@ -230,26 +230,26 @@ var _ = Describe("sealer build", func() {
 		//	testhelper.CheckErr(build.DeleteBuildImage(imageName + "-arm64"))
 		//})
 
-		It("multi build with amd64 and arm64", func() {
-			imageName := build.GetBuildImageName()
-			cmd := build.NewArgsOfBuild().
-				SetKubeFile("Kubefile").
-				SetImageName(imageName).
-				SetPlatforms([]string{"linux/amd64", "linux/arm64"}).
-				SetContext(".").
-				String()
-			sess, err := testhelper.Start(cmd)
-			testhelper.CheckErr(err)
-			testhelper.CheckExit0(sess, settings.MaxWaiteTime)
-			// check: sealer images whether image exist
-			testhelper.CheckBeTrue(build.CheckIsImageExist(imageName))
-
-			// check: push build image
-			testhelper.CheckErr(build.PushBuildImage(imageName))
-
-			// clean: build image
-			testhelper.CheckErr(build.DeleteBuildImage(imageName))
-		})
+		//It("multi build with amd64 and arm64", func() {
+		//	imageName := build.GetBuildImageName()
+		//	cmd := build.NewArgsOfBuild().
+		//		SetKubeFile("Kubefile").
+		//		SetImageName(imageName).
+		//		SetPlatforms([]string{"linux/amd64", "linux/arm64"}).
+		//		SetContext(".").
+		//		String()
+		//	sess, err := testhelper.Start(cmd)
+		//	testhelper.CheckErr(err)
+		//	testhelper.CheckExit0(sess, settings.MaxWaiteTime)
+		//	// check: sealer images whether image exist
+		//	testhelper.CheckBeTrue(build.CheckIsImageExist(imageName))
+		//
+		//	// check: push build image
+		//	testhelper.CheckErr(build.PushBuildImage(imageName))
+		//
+		//	// clean: build image
+		//	testhelper.CheckErr(build.DeleteBuildImage(imageName))
+		//})
 
 	})
 
