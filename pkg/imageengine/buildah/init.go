@@ -15,6 +15,7 @@
 package buildah
 
 import (
+	"github.com/sealerio/sealer/pkg/auth"
 	"os"
 	"path/filepath"
 )
@@ -126,10 +127,10 @@ func initBuildah() error {
 	}
 
 	// TODO maybe this should not be here.
-	//defaultAuthPath := auth.GetDefaultAuthFilePath()
-	//if err := writeFileIfNotExist(defaultAuthPath, []byte(sealerAuth)); err != nil {
-	//	return err
-	//}
+	defaultAuthPath := auth.GetDefaultAuthFilePath()
+	if err := writeFileIfNotExist(defaultAuthPath, []byte(sealerAuth)); err != nil {
+		return err
+	}
 
 	return nil
 }
