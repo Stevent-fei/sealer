@@ -67,5 +67,3 @@ jobs:
         with:
           name: sealer-binaries
           path: src/github.com/sealerio/sealer/_output/assets/*.tar.gz*
-
-
